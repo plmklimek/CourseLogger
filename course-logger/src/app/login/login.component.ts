@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppService } from '../app.service';
 import { User } from '../interfaces/UserInterface';
 import { loginStart } from '../state/auth.actions';
 import { AuthState } from '../state/auth.state';
@@ -15,17 +14,22 @@ import { AuthState } from '../state/auth.state';
 export class LoginComponent implements OnInit {
   userForm: FormGroup = {} as FormGroup;
   user: User = {} as User;
+  state: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
-    private appService: AppService,
-    private route: ActivatedRoute,
     private router: Router,
     private store: Store<AuthState>
   ) {}
 
   ngOnInit(): void {
     this.userForm = this.buildUserForm();
+    this.store.pipe().subscribe((s: any) => {
+      this.user = s.auth.user;
+      if (this.user.base) {
+        this.router.navigate(['users']);
+      }
+    });
   }
 
   buildUserForm() {

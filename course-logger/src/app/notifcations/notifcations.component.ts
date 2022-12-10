@@ -3,15 +3,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-notifcations',
   templateUrl: './notifcations.component.html',
-  styleUrls: ['./notifcations.component.css']
+  styleUrls: ['./notifcations.component.css'],
 })
 export class NotifcationsComponent implements OnInit {
+  message: string = 'Test';
 
-  message:string = "Test";
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
