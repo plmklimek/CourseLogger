@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { exhaustMap, map, Observable } from 'rxjs';
-import { AppService } from '../app.service';
-import { User } from '../interfaces/UserInterface';
+import { AppService } from 'src/app/app.service';
+import { User } from 'src/app/interfaces/UserInterface';
+
 import { loginStart, loginSuccess } from './auth.actions';
 
 @Injectable()
@@ -27,17 +28,17 @@ export class AuthEffects {
       })
     );
   });
-  setData(data: User, action: { email: string; password: string; }): void{
-    if(this.user.username == undefined){
+  setData(data: User, action: { email: string; password: string }): void {
+    if (this.user.username == undefined) {
       this.user.username = data.username;
     }
-    if(this.user.password == undefined){
+    if (this.user.password == undefined) {
       this.user.password = data.password;
     }
-    if(this.user.authorities == undefined){
+    if (this.user.authorities == undefined) {
       this.user.authorities = data.authorities;
     }
-    if(this.user.base == undefined){
+    if (this.user.base == undefined) {
       this.user.base = window.btoa(`${action.email}:${action.password}`);
     }
   }

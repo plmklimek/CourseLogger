@@ -17,6 +17,7 @@ import { AuthReducer } from './state/auth.reducer';
 import { AuthEffects } from './state/auth.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { MessageServiceService } from './message-service.service';
 
 const routers: Routes = [
   { path: 'login', component: LoginComponent },
@@ -46,7 +47,7 @@ const routers: Routes = [
       logOnly: environment.production,
     }),
   ],
-  providers: [],
+  providers: [MessageServiceService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
