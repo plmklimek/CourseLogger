@@ -12,18 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin(origins = "*", allowedHeaders =  "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/users")
 public class UserController {
     private final CustomUserDetailsService customUserDetailsService;
 
     @GetMapping("/login")
-    public ResponseEntity loginIn(){
-        try{
+    public ResponseEntity loginIn() {
+        try {
             String loggedUser = LoggedUser.getLoggedUser();
             return ResponseEntity.status(HttpStatus.OK).body(customUserDetailsService.loadUserByUsername(loggedUser));
-        }
-        catch(IllegalArgumentException exception){
+        } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest().body(exception);
         }
     }

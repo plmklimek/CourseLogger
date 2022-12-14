@@ -1,5 +1,6 @@
 package com.example.demo.configurations;
 
+import com.example.demo.models.enums.Role;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
@@ -27,11 +28,14 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+        http.cors().and().csrf().disable().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/register", "/ws/**").permitAll()
-                .anyRequest().authenticated()
+                .requestMatchers("/admin", "/ws/**").hasAnyRole(Role.ADMIN.getName())
+                .requestMatchers("/marks/add", "/ws/**").hasAnyRole(Role.TEACHER.getName()).anyRequest()
+                .authenticated()
                 .and()
                 .httpBasic();
         return http.build();

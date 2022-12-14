@@ -11,12 +11,10 @@ import java.security.Principal;
 
 @Controller
 public class SocketController {
+    private static final String ROOM = "/secured/room";
+    private static final String DESTINATION = "/secured/user/queue/specific-user";
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
-
-    private static final String ROOM = "/secured/room";
-
-    private static final String DESTINATION = "/secured/user/queue/specific-user";
 
     @MessageMapping("/private")
     public void sendSpecific(@Payload Message msg, Principal user) {
