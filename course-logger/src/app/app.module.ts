@@ -18,11 +18,25 @@ import { AuthEffects } from './state/auth.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { MessageServiceService } from './message-service.service';
+import { AdminAuthGuard } from './services/admin.auth.guard';
+import { TeacherAuthGuard } from './services/teacher.auth.guard';
+import { StudentAuthGuard } from './services/student.auth.guard';
 
 const routers: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'users', component: UsersComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'admin', component: UsersComponent, canActivate: [AdminAuthGuard] },
+  {
+    path: 'teacher',
+    component: UsersComponent,
+    canActivate: [TeacherAuthGuard],
+  },
+  {
+    path: 'student',
+    component: UsersComponent,
+    canActivate: [StudentAuthGuard],
+  },
 ];
 
 @NgModule({

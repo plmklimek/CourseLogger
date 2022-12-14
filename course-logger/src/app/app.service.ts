@@ -40,4 +40,29 @@ export class AppService {
   logout() {
     localStorage.removeItem('user');
   }
+
+  checkRole(role: string): boolean {
+    this.user = this.getAuth();
+    if (this.user && this.user.authorities) {
+      return (
+        this.user.authorities?.filter((auth) => auth.authority == role).length >
+        0
+      );
+      return false;
+    } else {
+      return false;
+    }
+  }
+
+  isAdmin(): boolean {
+    return this.checkRole('ADMIN');
+  }
+
+  isTeacher(): boolean {
+    return this.checkRole('TEACHER');
+  }
+
+  isStudent(): boolean {
+    return this.checkRole('STUDENT');
+  }
 }

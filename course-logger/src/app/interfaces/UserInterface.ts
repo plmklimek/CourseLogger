@@ -9,5 +9,5 @@ export interface User {
   surname?: string;
   photo?: string;
   base?: string;
-  authorities?: Authority;
+  authorities?: Authority[];
 }
