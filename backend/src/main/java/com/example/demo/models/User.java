@@ -1,5 +1,11 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,6 +20,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -34,6 +43,7 @@ public class User {
 
     @Column(name = "surname")
     private String surname;
+
     @Column(name = "email")
     private String email;
 
@@ -43,17 +53,39 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Authority> authorities;
 
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"student", "teacher"})
+    private List<StudentCourse> courses = new ArrayList<StudentCourse>();
+
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"student", "teacher", "course"})
+    private List<Course> conductedCourses = new ArrayList<Course>();
+    @OneToMany(
+            mappedBy = "student",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JsonIgnoreProperties({"student", "teacher"})
+    private List<Mark> marks = new ArrayList<>();
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(authorities, user.authorities);
+        return Objects.equals(id, user.id) && Objects.equals(name,
+                user.name) && Objects.equals(surname,
+                user.surname) && Objects.equals(email,
+                user.email) && Objects.equals(password,
+                user.password) && Objects.equals(authorities,
+                user.authorities) && Objects.equals(courses,
+                user.courses) && Objects.equals(marks, user.marks);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, email, password, authorities);
+        return Objects.hash(id, name, surname, email, password, authorities, courses,
+                marks);
     }
 
     @Override
@@ -65,6 +97,8 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", authorities=" + authorities +
+                ", students=" + courses +
+                ", marks=" + marks +
                 '}';
     }
 }
