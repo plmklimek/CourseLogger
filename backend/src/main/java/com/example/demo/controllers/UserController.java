@@ -27,29 +27,30 @@ public class UserController {
     public ResponseEntity loginIn() {
         try {
             String loggedUser = LoggedUser.getLoggedUser();
-            return ResponseEntity.status(HttpStatus.OK).body(customUserDetailsService.loadUserByUsername(loggedUser));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(customUserDetailsService.loadUserByUsername(loggedUser));
         } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
 
     @GetMapping("/students")
-    public ResponseEntity getStudents(){
-        try{
+    public ResponseEntity getStudents() {
+        try {
             List<User> students = userService.getAllTeachers();
-            return ResponseEntity.status(HttpStatus.OK).body(userService.getAllStudents());
-        }
-        catch(IllegalArgumentException exception){
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(userService.getAllStudents());
+        } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
 
     @GetMapping("/teachers")
-    public ResponseEntity getTeachers(){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(userService.getAllTeachers());
-        }
-        catch(IllegalArgumentException exception){
+    public ResponseEntity getTeachers() {
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(userService.getAllTeachers());
+        } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }

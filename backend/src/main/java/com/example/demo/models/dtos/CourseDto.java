@@ -1,25 +1,12 @@
 package com.example.demo.models.dtos;
 
-import com.example.demo.models.StudentCourse;
-import com.example.demo.models.User;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import com.example.demo.models.Course;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Builder(toBuilder = true)
@@ -32,9 +19,9 @@ public class CourseDto {
 
     private String name;
 
-    private List<StudentCourse> students = new ArrayList<StudentCourse>();
-
-    private User teacher;
+    public CourseDto(Course course) {
+        this(course.getId(), course.getName());
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -42,13 +29,12 @@ public class CourseDto {
         if (o == null || getClass() != o.getClass()) return false;
         CourseDto courseDto = (CourseDto) o;
         return Objects.equals(id, courseDto.id) && Objects.equals(name,
-                courseDto.name) && Objects.equals(students,
-                courseDto.students) && Objects.equals(teacher, courseDto.teacher);
+                courseDto.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, students, teacher);
+        return Objects.hash(id, name);
     }
 
     @Override
@@ -56,8 +42,6 @@ public class CourseDto {
         return "CourseDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", students=" + students +
-                ", teacher=" + teacher +
                 '}';
     }
 }

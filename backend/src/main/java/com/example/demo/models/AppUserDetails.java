@@ -16,7 +16,8 @@ public class AppUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        user.getAuthorities().forEach(authority -> authorities.add(new SimpleGrantedAuthority(authority.getAuthority())));
+        user.getAuthorities().forEach(authority -> authorities.add(
+                new SimpleGrantedAuthority(authority.getAuthority())));
         return authorities;
     }
 

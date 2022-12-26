@@ -12,7 +12,7 @@ import java.util.List;
 public class StudentCourseService {
     private final StudentCourseRepository studentCourseRepository;
 
-    public List<StudentCourse> getAll(){
+    public List<StudentCourse> getAll() {
         return studentCourseRepository.findAll();
     }
 }

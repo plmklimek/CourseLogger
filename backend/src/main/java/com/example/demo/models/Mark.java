@@ -1,9 +1,5 @@
 package com.example.demo.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,7 +38,7 @@ public class Mark {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "course_id", referencedColumnName = "id")
-    private Course courses;
+    private Course course;
 
     private Double mark;
 
@@ -53,13 +49,13 @@ public class Mark {
         Mark mark1 = (Mark) o;
         return Objects.equals(id, mark1.id) && Objects.equals(teacher,
                 mark1.teacher) && Objects.equals(student,
-                mark1.student) && Objects.equals(courses,
-                mark1.courses) && Objects.equals(mark, mark1.mark);
+                mark1.student) && Objects.equals(course,
+                mark1.course) && Objects.equals(mark, mark1.mark);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, teacher, student, courses, mark);
+        return Objects.hash(id, teacher, student, course, mark);
     }
 
     @Override
@@ -68,7 +64,7 @@ public class Mark {
                 "id=" + id +
                 ", teacher=" + teacher +
                 ", student=" + student +
-                ", courses=" + courses +
+                ", courses=" + course +
                 ", mark=" + mark +
                 '}';
     }

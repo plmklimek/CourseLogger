@@ -46,22 +46,30 @@ public class SocketBrockerConfig implements WebSocketMessageBrokerConfigurer {
             @Override
             public Message<?> preSend(Message<?> message, MessageChannel channel) {
                 StompHeaderAccessor accessor =
-                        MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+                        MessageHeaderAccessor.getAccessor(message,
+                                StompHeaderAccessor.class);
                 if (StompCommand.CONNECT.equals(accessor.getCommand())) {
-                    String email = Objects.requireNonNull(accessor.getNativeHeader("email")).get(0);
-                    String password = Objects.requireNonNull(accessor.getNativeHeader("password")).get(0);
+                    String email = Objects.requireNonNull(
+                            accessor.getNativeHeader("email")).get(0);
+                    String password = Objects.requireNonNull(
+                            accessor.getNativeHeader("password")).get(0);
                     User user = userRepository.findByEmail(email);
-                    if(email == null || password == null){
-                        throw new AuthenticationCredentialsNotFoundException("User not found");
+                    if (email == null || password == null) {
+                        throw new AuthenticationCredentialsNotFoundException(
+                                "User not found");
                     }
 
                     UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                             email,
                             password,
-                            user.getAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority.getAuthority())).collect(Collectors.toSet())
+                            user.getAuthorities().stream()
+                                    .map(authority -> new SimpleGrantedAuthority(
+                                            authority.getAuthority()))
+                                    .collect(Collectors.toSet())
                     );
 
-                    SecurityContextHolder.getContext().setAuthentication(token); ; // access authentication header(s)
+                    SecurityContextHolder.getContext().setAuthentication(token);
+                    ; // access authentication header(s)
                     accessor.setUser(token);
                 }
                 return message;

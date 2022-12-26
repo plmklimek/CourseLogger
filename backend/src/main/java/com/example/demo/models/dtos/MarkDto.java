@@ -1,13 +1,7 @@
 package com.example.demo.models.dtos;
 
-import com.example.demo.models.Course;
-import com.example.demo.models.User;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.example.demo.models.Mark;
+import com.example.demo.models.dtos.users.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,13 +18,19 @@ import java.util.Objects;
 public class MarkDto {
     private Long id;
 
-    private User teacher;
+    private UserDto teacher;
 
-    private User student;
+    private UserDto student;
 
-    private Course courses;
+    private CourseDto course;
 
     private Double mark;
+
+    public MarkDto(Mark mark) {
+        this(mark.getId(), new UserDto(mark.getTeacher()),
+                new UserDto(mark.getStudent()), new CourseDto(mark.getCourse()),
+                mark.getMark());
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -39,13 +39,13 @@ public class MarkDto {
         MarkDto markDto = (MarkDto) o;
         return Objects.equals(id, markDto.id) && Objects.equals(teacher,
                 markDto.teacher) && Objects.equals(student,
-                markDto.student) && Objects.equals(courses,
-                markDto.courses) && Objects.equals(mark, markDto.mark);
+                markDto.student) && Objects.equals(course,
+                markDto.course) && Objects.equals(mark, markDto.mark);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, teacher, student, courses, mark);
+        return Objects.hash(id, teacher, student, course, mark);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class MarkDto {
                 "id=" + id +
                 ", teacher=" + teacher +
                 ", student=" + student +
-                ", courses=" + courses +
+                ", courses=" + course +
                 ", mark=" + mark +
                 '}';
     }

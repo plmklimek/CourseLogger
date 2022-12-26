@@ -34,7 +34,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/register", "/ws/**").permitAll()
                 .requestMatchers("/admin", "/ws/**").hasAnyRole(Role.ADMIN.getName())
-                .requestMatchers("/marks/add", "/ws/**").hasAnyRole(Role.TEACHER.getName()).anyRequest()
+                .requestMatchers("/marks/add", "/ws/**")
+                .hasAnyRole(Role.TEACHER.getName()).anyRequest()
                 .authenticated()
                 .and()
                 .httpBasic();

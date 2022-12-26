@@ -1,7 +1,6 @@
 package com.example.demo.controllers;
 
 import com.example.demo.services.CourseService;
-import com.example.demo.services.StudentCourseService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +17,10 @@ public class CourseController {
     private final CourseService courseService;
 
     @GetMapping("/test")
-    public ResponseEntity getAll(){
-        try{
+    public ResponseEntity getAll() {
+        try {
             return ResponseEntity.status(HttpStatus.OK).body(courseService.getAll());
-        }
-        catch(IllegalArgumentException exception){
+        } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
