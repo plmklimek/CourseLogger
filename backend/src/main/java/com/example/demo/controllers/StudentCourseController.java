@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.ErrorModal;
 import com.example.demo.services.StudentCourseService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,12 @@ public class StudentCourseController {
     private final StudentCourseService studentCourseService;
 
     @GetMapping("/test")
-    public ResponseEntity getAll() {
+    public ResponseEntity<?> getAll() {
         try {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(studentCourseService.getAll());
         } catch (IllegalArgumentException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
+            return ResponseEntity.badRequest().body(new ErrorModal(exception.getMessage()));
         }
     }
 }

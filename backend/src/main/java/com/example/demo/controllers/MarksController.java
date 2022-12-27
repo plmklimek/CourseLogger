@@ -27,7 +27,7 @@ public class MarksController {
     }
 
     @GetMapping("/byCourse/{id}")
-    public ResponseEntity<Map<UserDto, List<MarkDto>>> getMarksByCouse(
+    public ResponseEntity<Map<UserDto, List<MarkDto>>> getMarksByCourse(
             @PathVariable Long id) {
         return ResponseEntity.ok(marksService.findByCourseId(id));
     }
