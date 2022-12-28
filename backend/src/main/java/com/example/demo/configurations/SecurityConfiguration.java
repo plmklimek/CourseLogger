@@ -54,4 +54,8 @@ public class SecurityConfiguration {
     public UserDetailsService userDetailsService() {
         return new CustomUserDetailsService(userRepository);
     }
+
+    public static PasswordEncoder getPasswordEncoder() {
+        return getPasswordEncoder();
+    }
 }

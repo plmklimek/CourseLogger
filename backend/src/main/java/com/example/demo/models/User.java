@@ -63,6 +63,9 @@ public class User {
     @JsonIgnoreProperties({"student", "teacher"})
     private List<Mark> marks = new ArrayList<>();
 
+    private String image;
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,13 +77,15 @@ public class User {
                 user.email) && Objects.equals(password,
                 user.password) && Objects.equals(authorities,
                 user.authorities) && Objects.equals(courses,
-                user.courses) && Objects.equals(marks, user.marks);
+                user.courses) && Objects.equals(conductedCourses,
+                user.conductedCourses) && Objects.equals(marks,
+                user.marks) && Objects.equals(image, user.image);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, surname, email, password, authorities, courses,
-                marks);
+                conductedCourses, marks, image);
     }
 
     @Override
@@ -92,8 +97,10 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", authorities=" + authorities +
-                ", students=" + courses +
+                ", courses=" + courses +
+                ", conductedCourses=" + conductedCourses +
                 ", marks=" + marks +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

@@ -1,6 +1,9 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.ErrorModal;
+import com.example.demo.models.User;
+import com.example.demo.models.dtos.users.UserDto;
+import com.example.demo.models.enums.Role;
 import com.example.demo.services.CustomUserDetailsService;
 import com.example.demo.services.UserService;
 import com.example.demo.utils.LoggedUser;
@@ -10,8 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @AllArgsConstructor
@@ -29,7 +35,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(customUserDetailsService.loadUserByUsername(loggedUser));
         } catch (IllegalArgumentException exception) {
-            return ResponseEntity.badRequest().body(new ErrorModal(exception.getMessage()));
+            return ResponseEntity.badRequest()
+                    .body(new ErrorModal(exception.getMessage()));
         }
     }
 
@@ -39,7 +46,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(userService.getAllStudents());
         } catch (IllegalArgumentException exception) {
-            return ResponseEntity.badRequest().body(new ErrorModal(exception.getMessage()));
+            return ResponseEntity.badRequest()
+                    .body(new ErrorModal(exception.getMessage()));
         }
     }
 
@@ -49,7 +57,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(userService.getStudentById(id));
         } catch (IllegalArgumentException exception) {
-            return ResponseEntity.badRequest().body(new ErrorModal(exception.getMessage()));
+            return ResponseEntity.badRequest()
+                    .body(new ErrorModal(exception.getMessage()));
         }
     }
 
@@ -59,7 +68,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(userService.getAllTeachers());
         } catch (IllegalArgumentException exception) {
-            return ResponseEntity.badRequest().body(new ErrorModal(exception.getMessage()));
+            return ResponseEntity.badRequest()
+                    .body(new ErrorModal(exception.getMessage()));
         }
     }
 
@@ -69,8 +79,38 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(userService.getTeacherById(id));
         } catch (IllegalArgumentException exception) {
-            return ResponseEntity.badRequest().body(new ErrorModal(exception.getMessage()));
+            return ResponseEntity.badRequest()
+                    .body(new ErrorModal(exception.getMessage()));
         }
     }
 
+    @PostMapping("/teachers")
+    public ResponseEntity<?> createTeacher(User user,
+                                           @RequestParam("photo") MultipartFile file) {
+        try {
+            User createdUser =
+                    userService.createUser(
+                            new UserDto(user).loadPassword(user.getPassword()),
+                            file, Role.TEACHER);
+            return ResponseEntity.ok(createdUser);
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity.badRequest()
+                    .body(new ErrorModal(exception.getMessage()));
+        }
+    }
+
+    @PostMapping("/students")
+    public ResponseEntity<?> createStudent(User user,
+                                           @RequestParam("photo") MultipartFile file) {
+        try {
+            User createdUser =
+                    userService.createUser(
+                            new UserDto(user).loadPassword(user.getPassword()),
+                            file, Role.STUDENT);
+            return ResponseEntity.ok(createdUser);
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity.badRequest()
+                    .body(new ErrorModal(exception.getMessage()));
+        }
+    }
 }

@@ -35,6 +35,11 @@ public class StudentCourse {
     @JoinColumn(name = "course_id")
     private Course course;
 
+    public StudentCourse(User student, Course course) {
+        this.student = student;
+        this.course = course;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
