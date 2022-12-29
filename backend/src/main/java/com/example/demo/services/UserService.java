@@ -24,18 +24,16 @@ public class UserService {
 
     private static final String USER_DOESNT_EXISTS = "USER DOESNT EXISTS";
 
+    private static final String USER_HAS_NOT_PERMISSION = "USER HAS NOT PERMISSION";
+
     public List<UserDto> getAllStudents() {
-        return userRepository.findAll().stream().filter(user -> {
-            return user.getAuthorities().stream()
-                    .anyMatch(auth -> auth.getAuthority().equals(Role.STUDENT.getName()));
-        }).map(UserDto::new).collect(Collectors.toList());
+        return userRepository.findAll().stream().filter(user -> user.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equals(Role.STUDENT.getName()))).map(UserDto::new).collect(Collectors.toList());
     }
 
     public List<UserDto> getAllTeachers() {
-        return userRepository.findAll().stream().filter(user -> {
-            return user.getAuthorities().stream()
-                    .anyMatch(auth -> auth.getAuthority().equals(Role.TEACHER.getName()));
-        }).map(UserDto::new).collect(Collectors.toList());
+        return userRepository.findAll().stream().filter(user -> user.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equals(Role.TEACHER.getName()))).map(UserDto::new).collect(Collectors.toList());
     }
 
     public User getTeacherByIdUser(Long id) {
@@ -93,6 +91,20 @@ public class UserService {
         User createdUser = userRepository.save(user);
         authorityService.createAuthority(createdUser, role);
         return createdUser;
+    }
+
+    public boolean hasPermission(String name, Role role) {
+        User user = userRepository.findByEmail(name);
+        if (user.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equals(role.getName()))) {
+            return true;
+        } else {
+            throw new IllegalArgumentException(USER_HAS_NOT_PERMISSION);
+        }
+    }
+
+    public User getUserByEmail(String name) {
+        return userRepository.findByEmail(name);
     }
 
     private PasswordEncoder passwordEncoder() {

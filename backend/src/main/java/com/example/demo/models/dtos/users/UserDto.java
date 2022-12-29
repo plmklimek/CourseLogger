@@ -1,6 +1,7 @@
 package com.example.demo.models.dtos.users;
 
 import com.example.demo.models.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,12 +38,14 @@ public class UserDto {
                 user.getImage());
     }
 
+    @JsonIgnore
     public User getUser() {
         return new User(this.id, this.name, this.surname, this.email, null,
                 new HashSet<>(), new ArrayList<>(),
                 new ArrayList<>(), new ArrayList<>(), this.image);
     }
 
+    @JsonIgnore
     public User getUserWithPassword() {
         return new User(this.id, this.name, this.surname, this.email, this.password,
                 new HashSet<>(), new ArrayList<>(),

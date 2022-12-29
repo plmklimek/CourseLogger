@@ -4,10 +4,12 @@ import com.example.demo.models.Course;
 import com.example.demo.models.User;
 import com.example.demo.models.dtos.CourseDto;
 import com.example.demo.models.dtos.CreateCourse;
+import com.example.demo.models.enums.Role;
 import com.example.demo.repositories.CourseRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,5 +45,21 @@ public class CourseService {
         courseToCreate.setName(course.getName());
         courseToCreate.setTeacher(user);
         return courseRepository.save(courseToCreate);
+    }
+
+    public List<CourseDto> getUserCourses(String name) {
+        User user = userService.getUserByEmail(name);
+        if (user.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals(
+                Role.TEACHER.getName()))) {
+            return user.getConductedCourses().stream().map(CourseDto::new).collect(
+                    Collectors.toList());
+        } else if (user.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equals(
+                        Role.STUDENT.getName()))) {
+            return user.getCourses().stream()
+                    .map(userCourse -> new CourseDto(userCourse.getCourse())).collect(
+                            Collectors.toList());
+        }
+        return new ArrayList<CourseDto>();
     }
 }

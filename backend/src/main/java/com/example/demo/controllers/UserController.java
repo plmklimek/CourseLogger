@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
+
 @RestController
 @AllArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -86,13 +88,17 @@ public class UserController {
 
     @PostMapping("/teachers")
     public ResponseEntity<?> createTeacher(User user,
-                                           @RequestParam("photo") MultipartFile file) {
+                                           @RequestParam("photo") MultipartFile file,
+                                           Principal principal) {
         try {
-            User createdUser =
-                    userService.createUser(
-                            new UserDto(user).loadPassword(user.getPassword()),
-                            file, Role.TEACHER);
-            return ResponseEntity.ok(createdUser);
+            if (userService.hasPermission(principal.getName(), Role.ADMIN)) {
+                User createdUser =
+                        userService.createUser(
+                                new UserDto(user).loadPassword(user.getPassword()),
+                                file, Role.TEACHER);
+                return ResponseEntity.ok(createdUser);
+            }
+            return null;
         } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest()
                     .body(new ErrorModal(exception.getMessage()));
@@ -101,13 +107,17 @@ public class UserController {
 
     @PostMapping("/students")
     public ResponseEntity<?> createStudent(User user,
-                                           @RequestParam("photo") MultipartFile file) {
+                                           @RequestParam("photo") MultipartFile file,
+                                           Principal principal) {
         try {
-            User createdUser =
-                    userService.createUser(
-                            new UserDto(user).loadPassword(user.getPassword()),
-                            file, Role.STUDENT);
-            return ResponseEntity.ok(createdUser);
+            if (userService.hasPermission(principal.getName(), Role.ADMIN)) {
+                User createdUser =
+                        userService.createUser(
+                                new UserDto(user).loadPassword(user.getPassword()),
+                                file, Role.STUDENT);
+                return ResponseEntity.ok(createdUser);
+            }
+            return null;
         } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest()
                     .body(new ErrorModal(exception.getMessage()));
