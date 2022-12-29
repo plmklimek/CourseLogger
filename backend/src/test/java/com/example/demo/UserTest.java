@@ -14,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -72,7 +71,7 @@ public class UserTest {
     }
 
     @Test
-    void getStudentById(){
+    void getStudentById() {
         User user = Modals.getStudent();
         Authority authority = new Authority();
         authority.setAuthority(Role.STUDENT.getName());
@@ -84,19 +83,19 @@ public class UserTest {
     }
 
     @Test
-    void getStudentByIdWithException(){
+    void getStudentByIdWithException() {
         User user = Modals.getStudent();
         Authority authority = new Authority();
         authority.setAuthority(Role.ADMIN.getName());
         user.setAuthorities(new HashSet<>(List.of(authority)));
         doReturn(Optional.of(user)).when(userRepository).findById(1L);
         assertThatIllegalArgumentException()
-                .isThrownBy(() ->  userService.getStudentByIdUser(1L))
+                .isThrownBy(() -> userService.getStudentByIdUser(1L))
                 .withMessage("USER DOESNT EXISTS");
     }
 
     @Test
-    void getTeacherById(){
+    void getTeacherById() {
         User user = Modals.getStudent();
         Authority authority = new Authority();
         authority.setAuthority(Role.TEACHER.getName());
@@ -108,19 +107,19 @@ public class UserTest {
     }
 
     @Test
-    void getTeacherByIdWithException(){
+    void getTeacherByIdWithException() {
         User user = Modals.getStudent();
         Authority authority = new Authority();
         authority.setAuthority(Role.ADMIN.getName());
         user.setAuthorities(new HashSet<>(List.of(authority)));
         doReturn(Optional.of(user)).when(userRepository).findById(1L);
         assertThatIllegalArgumentException()
-                .isThrownBy(() ->  userService.getTeacherByIdUser(1L))
+                .isThrownBy(() -> userService.getTeacherByIdUser(1L))
                 .withMessage("USER DOESNT EXISTS");
     }
 
     @Test
-    void getUserByEmail(){
+    void getUserByEmail() {
         User user = Modals.getStudent();
         Authority authority = new Authority();
         authority.setAuthority(Role.TEACHER.getName());
@@ -133,7 +132,7 @@ public class UserTest {
     }
 
     @Test
-    void getAllStudents(){
+    void getAllStudents() {
         User user = Modals.getStudent();
         Authority authority = new Authority();
         authority.setAuthority(Role.TEACHER.getName());
@@ -153,7 +152,7 @@ public class UserTest {
     }
 
     @Test
-    void getAllTeachers(){
+    void getAllTeachers() {
         User user = Modals.getStudent();
         Authority authority = new Authority();
         authority.setAuthority(Role.TEACHER.getName());

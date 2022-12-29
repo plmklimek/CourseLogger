@@ -86,6 +86,7 @@ public class Modals {
                 .marks(new ArrayList<>())
                 .build();
     }
+
     public static MultipartFile getMultipartFile() {
         return new MultipartFile() {
             @Override

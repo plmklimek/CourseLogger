@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.example.demo.models.dtos.CreateCourse;
 import com.example.demo.models.dtos.MarkCreate;
 import com.example.demo.repositories.MarkRepository;
 import com.example.demo.services.CourseService;
@@ -31,7 +30,7 @@ public class MarkTest {
     private MarkRepository markRepository;
 
     @Test
-    void createMark(){
+    void createMark() {
         MarkCreate createMark = new MarkCreate(2.0, 1L, 2L, 1L);
         doReturn(Modals.getTeacher()).when(userService).getTeacherByIdUser(any());
         doReturn(Modals.getStudent()).when(userService).getStudentByIdUser(any());

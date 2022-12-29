@@ -11,12 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,7 +29,7 @@ public class StudentCourseTest {
     private UserService userService;
 
     @Test
-    void createStudentCourse(){
+    void createStudentCourse() {
         CreateCourse course = new CreateCourse(1L, "KURS", Modals.getTeacher().getId(),
                 null);
         doReturn(Modals.getStudent()).when(userService).getStudentByIdUser(any());
