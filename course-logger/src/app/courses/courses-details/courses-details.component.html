@@ -8,3 +8,18 @@
         <p *ngFor="let obj of object.marks">{{obj}}</p>
     </li>
 </div>
+<h3>
+    Dodaj ucznia
+</h3>
+<form *ngIf="users" (ngSubmit)="addStudentToCourse()">
+    <div class="form-group">
+      <label for="selectInput">Wybierz opcję:</label>
+      <select class="form-control" id="selectInput" name="selectInput" [(ngModel)]="student.id">
+        <option *ngFor="let item of users" [value]="item.id">{{ item.name + ' ' + item.surname}}</option>
+      </select>
+    </div>
+    
+    <!-- pozostałe pola formularza... -->
+    
+    <button type="submit" class="btn btn-primary">Wyślij</button>
+  </form>

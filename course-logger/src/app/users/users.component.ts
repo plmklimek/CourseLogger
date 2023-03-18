@@ -1,5 +1,7 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AppService } from '../app.service';
 import { User } from '../interfaces/UserInterface';
 import { MessageServiceService } from '../message-service.service';
@@ -17,7 +19,8 @@ export class UsersComponent implements OnInit {
   constructor(
     private appService: AppService,
     private router: Router,
-    private webSocketService: MessageServiceService
+    private webSocketService: MessageServiceService,
+    private http: HttpClient
   ) {
     // Open connection with server socket
   }

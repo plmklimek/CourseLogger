@@ -23,11 +23,13 @@ import { TeacherAuthGuard } from './services/teacher.auth.guard';
 import { StudentAuthGuard } from './services/student.auth.guard';
 import { CoursesComponent } from './courses/courses/courses.component';
 import { CoursesDetailsComponent } from './courses/courses-details/courses-details.component';
-
+import { FormsModule } from '@angular/forms';
+import { CoursesAddComponent } from './courses/courses-add/courses-add.component';
 const routers: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'courses', component: CoursesComponent },
   { path: 'courses-details/:id', component: CoursesDetailsComponent },
+  { path: 'courses-add', component: CoursesAddComponent },
   { path: 'users', component: UsersComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'admin', component: UsersComponent, canActivate: [AdminAuthGuard] },
@@ -51,12 +53,14 @@ const routers: Routes = [
     NotifcationsComponent,
     CoursesComponent,
     CoursesDetailsComponent,
+    CoursesAddComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
+    FormsModule,
     RouterModule.forRoot(routers),
     HttpClientModule,
     EffectsModule.forRoot([AuthEffects]),

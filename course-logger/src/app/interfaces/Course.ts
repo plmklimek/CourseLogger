@@ -1,7 +1,8 @@
 import {User} from './UserInterface';
 export interface Course {
-    id:number,
+    id?:number,
     name:string,
-    students:User[],
-    teacher:User
+    students?:User[],
+    teacher?:User,
+    teacherId: number
 }
