@@ -10,4 +10,5 @@ export interface User {
   photo?: string;
   base?: string;
   authorities?: Authority[];
+  marks?:number[]
 }

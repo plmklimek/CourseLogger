@@ -1,0 +1,10 @@
+<h1>Karta przedmiotu</h1>
+<div>
+    <p>Nazwa: {{course.name}}</p>
+    <p>Imie nauczyciela: {{course.teacher ? course.teacher.name : 'null'}}</p>
+    <h2>Uczniowie</h2>
+    <li *ngFor="let object of course.students">
+        {{object.name}}  {{object.surname}}
+        <p *ngFor="let obj of object.marks">{{obj}}</p>
+    </li>
+</div>

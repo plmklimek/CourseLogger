@@ -21,9 +21,13 @@ import { MessageServiceService } from './message-service.service';
 import { AdminAuthGuard } from './services/admin.auth.guard';
 import { TeacherAuthGuard } from './services/teacher.auth.guard';
 import { StudentAuthGuard } from './services/student.auth.guard';
+import { CoursesComponent } from './courses/courses/courses.component';
+import { CoursesDetailsComponent } from './courses/courses-details/courses-details.component';
 
 const routers: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'courses', component: CoursesComponent },
+  { path: 'courses-details/:id', component: CoursesDetailsComponent },
   { path: 'users', component: UsersComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'admin', component: UsersComponent, canActivate: [AdminAuthGuard] },
@@ -45,6 +49,8 @@ const routers: Routes = [
     LoginComponent,
     UsersComponent,
     NotifcationsComponent,
+    CoursesComponent,
+    CoursesDetailsComponent,
   ],
   imports: [
     BrowserModule,
