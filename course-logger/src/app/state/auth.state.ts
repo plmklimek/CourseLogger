@@ -1,5 +1,4 @@
-import { User } from "../interfaces/UserInterface";
-
+import { User } from '../interfaces/UserInterface';
 
 export interface AuthState {
   user: User;

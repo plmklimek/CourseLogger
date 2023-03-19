@@ -1,3 +1,3 @@
 export interface AuthResponseData {
-    basic: string;
+  basic: string;
 }

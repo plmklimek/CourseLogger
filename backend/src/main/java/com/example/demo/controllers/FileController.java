@@ -19,6 +19,7 @@ import java.nio.file.Files;
 @RequestMapping("/files")
 public class FileController {
     private final FileStorageService fileStorageService;
+
     @GetMapping(value = "/{filename}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<Resource> downloadFile(@PathVariable String filename) throws IOException {
         File file = new File("uploads/" + filename);

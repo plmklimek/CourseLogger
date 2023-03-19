@@ -1,6 +1,6 @@
 package com.example.demo.models;
 
-public class AppUserDetailsWithId extends AppUserDetails{
+public class AppUserDetailsWithId extends AppUserDetails {
     private Long id;
 
     public Long getId() {

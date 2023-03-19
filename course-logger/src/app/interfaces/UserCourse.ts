@@ -1,4 +1,4 @@
 export interface UserCourse {
-    userId:number,
-    courseId:number
+  userId: number;
+  courseId: number;
 }

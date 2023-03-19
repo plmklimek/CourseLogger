@@ -1,4 +1,4 @@
 export interface UserCourseCreation {
-    id:number,
-    studentId:number
+  id: number;
+  studentId: number;
 }

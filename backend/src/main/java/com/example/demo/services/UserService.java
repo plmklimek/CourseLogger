@@ -39,10 +39,10 @@ public class UserService {
                 .filter(user -> user.getAuthorities().stream()
                         .anyMatch(auth -> auth.getAuthority()
                                 .equals(Role.STUDENT.getName())
-                        &&
-                        user.getCourses().stream()
-                                .anyMatch(course -> course.getCourse().getId()
-                                        .equals(id)))
+                                &&
+                                user.getCourses().stream()
+                                        .anyMatch(course -> course.getCourse().getId()
+                                                .equals(id)))
                 ).map(UserDto::new)
                 .collect(Collectors.toList());
     }
