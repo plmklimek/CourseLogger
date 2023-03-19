@@ -39,7 +39,7 @@ export class CoursesDetailsComponent implements OnInit {
     private coursesService: CoursesService,
     private notificationService: NotificationsService,
     private appService: AppService,
-    private communicationService:CommunicationService
+    private communicationService: CommunicationService
   ) {}
 
   ngOnInit(): void {
@@ -125,11 +125,13 @@ export class CoursesDetailsComponent implements OnInit {
     console.log(mark);
     this.marksService.addMark(mark).subscribe((p) => {
       this.notificationService.setText('Dodano ocenę');
-      let message : Message = {
-        text:`Otrzymałeś ocenę ${mark.mark} z przedmiotu ${this.course.name}`,
-        to: this.usersInCourse.filter(user => user.id === +this.mark.studentId).map(pred => pred.email)[0]
-      }
-      this.communicationService.sendMessage(message)
+      let message: Message = {
+        text: `Otrzymałeś ocenę ${mark.mark} z przedmiotu ${this.course.name}`,
+        to: this.usersInCourse
+          .filter((user) => user.id === +this.mark.studentId)
+          .map((pred) => pred.email)[0],
+      };
+      this.communicationService.sendMessage(message);
       setTimeout(() => window.location.reload(), 3 * 1500);
     });
   }

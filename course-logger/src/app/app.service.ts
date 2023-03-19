@@ -21,11 +21,10 @@ export class AppService {
     return this.user;
   }
 
-  getId(email:string): number{
+  getId(email: string): number {
     let id: number = 0;
     this.getUserByEmail(email).subscribe((p) => {
-      if(p.id != null)
-        id = p.id;
+      if (p.id != null) id = p.id;
     });
     return id as number;
   }
@@ -75,19 +74,13 @@ export class AppService {
     return this.checkRole('STUDENT');
   }
 
-  getUserByEmail(email:string): Observable<User> {
+  getUserByEmail(email: string): Observable<User> {
     let httpHeaders = new HttpHeaders();
     httpHeaders = httpHeaders.set('Content-Type', 'application/json');
-    httpHeaders = httpHeaders.set(
-      'Authorization',
-      'Basic ' + this.user.base
-    );
+    httpHeaders = httpHeaders.set('Authorization', 'Basic ' + this.user.base);
     const httpOptions = {
       headers: httpHeaders,
     };
-    return this.http.get<User>(
-      `${this.apiUrl}/byEmail/${email}`,
-      httpOptions
-    );
+    return this.http.get<User>(`${this.apiUrl}/byEmail/${email}`, httpOptions);
   }
 }

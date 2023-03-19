@@ -1,5 +1,5 @@
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
-export interface Message{
-    message:string | Observable<Message>;
+export interface Message {
+  message: string | Observable<Message>;
 }

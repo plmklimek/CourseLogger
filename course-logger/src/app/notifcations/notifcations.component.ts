@@ -45,7 +45,7 @@ export class NotifcationsComponent implements OnInit {
       });
     }
     this.notificationService.getText().subscribe((text) => {
-      this.text = {text: text}
+      this.text = { text: text };
     });
 
     setTimeout(() => this.notificationService.setText(''), 3 * 1500);

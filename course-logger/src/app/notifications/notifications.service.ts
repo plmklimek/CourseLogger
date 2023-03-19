@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Observable, ObservableLike, of, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotificationsService {
-
   text = new Subject<string>();
-  
-  constructor() { }
 
-  setText(text: string){
+  constructor() {}
+
+  setText(text: string) {
     this.text.next(text);
     setTimeout(() => this.text.next(''), 3 * 1000);
   }
-  
-  getText():Observable<string>{
+
+  getText(): Observable<string> {
     return this.text.asObservable();
   }
 }

@@ -18,7 +18,7 @@ export class UsersService {
     headers = headers.set('Authorization', 'Basic ' + this.user.base);
     return this.http.get(this.filesUrl + `/${name}`, {
       headers: headers,
-      responseType: 'blob'
+      responseType: 'blob',
     });
   }
 
@@ -33,7 +33,7 @@ export class UsersService {
     return this.http.get<User[]>(`${this.apiUrl}/students`, httpOptions);
   }
 
-  getStudentsByCourse(id:number): Observable<User[]> {
+  getStudentsByCourse(id: number): Observable<User[]> {
     this.user = this.appService.getAuth();
     let httpHeaders = new HttpHeaders();
     httpHeaders = httpHeaders.set('Content-Type', 'application/json');
@@ -41,7 +41,10 @@ export class UsersService {
     const httpOptions = {
       headers: httpHeaders,
     };
-    return this.http.get<User[]>(`${this.apiUrl}/students/byCourse/${id}`, httpOptions);
+    return this.http.get<User[]>(
+      `${this.apiUrl}/students/byCourse/${id}`,
+      httpOptions
+    );
   }
 
   getTeachers(): Observable<User[]> {
@@ -55,13 +58,12 @@ export class UsersService {
     return this.http.get<User[]>(`${this.apiUrl}/teachers`, httpOptions);
   }
 
-  createUser(formData: FormData){
+  createUser(formData: FormData) {
     let type = formData.get('type') as unknown as number;
-    let finalUrl = "";
-    if(type == 0){
+    let finalUrl = '';
+    if (type == 0) {
       finalUrl = `${this.apiUrl}/teachers`;
-    } 
-    else{
+    } else {
       finalUrl = `${this.apiUrl}/students`;
     }
 
@@ -70,28 +72,24 @@ export class UsersService {
     const boundary = this.generateBoundary();
     let httpHeaders = new HttpHeaders();
     //httpHeaders = httpHeaders.set('Content-Type', `multipart/form-data; boundary=${boundary}`);
-    httpHeaders = httpHeaders.set(
-      'Authorization',
-      'Basic ' + this.user.base
-    );
+    httpHeaders = httpHeaders.set('Authorization', 'Basic ' + this.user.base);
     const httpOptions = {
       headers: httpHeaders,
     };
     formData.append('test', 'test');
-    return this.http.post(
-      `${finalUrl}`,
-      formData,
-      httpOptions
-    );
+    return this.http.post(`${finalUrl}`, formData, httpOptions);
   }
   private generateBoundary(): string {
     let boundary = '';
-    const possibleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  
+    const possibleChars =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
     for (let i = 0; i < 32; i++) {
-      boundary += possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
+      boundary += possibleChars.charAt(
+        Math.floor(Math.random() * possibleChars.length)
+      );
     }
-  
+
     return boundary;
   }
 }

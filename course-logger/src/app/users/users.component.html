@@ -5,10 +5,10 @@
 <button (click)="loadStudents()">wyświetl uczniów</button>
 <button (click)="loadTeachers()">wyświetl nauczycieli</button>
 <ul>
-    <li class="li" *ngFor="let item of users">
-        <p class="p">{{item.name + ' ' + item.surname}}</p>
-        <div *ngIf="item.imageBlob">
-            <img class="img" [src]="item.imageBlob" alt="Zdjęcie">
-        </div>
-    </li>
+  <li class="li" *ngFor="let item of users">
+    <p class="p">{{ item.name + " " + item.surname }}</p>
+    <div *ngIf="item.imageBlob">
+      <img class="img" [src]="item.imageBlob" alt="Zdjęcie" />
+    </div>
+  </li>
 </ul>

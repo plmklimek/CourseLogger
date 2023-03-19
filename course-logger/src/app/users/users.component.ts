@@ -1,11 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AppService } from '../app.service';
 import { User } from '../interfaces/UserInterface';
-import { MessageServiceService } from '../message-service.service';
 import { UsersService } from './users.service';
 
 @Component({
@@ -20,11 +15,7 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
 
   constructor(
-    private appService: AppService,
-    private router: Router,
-    private webSocketService: MessageServiceService,
-    private http: HttpClient,
-    private userService:UsersService,
+    private userService: UsersService,
     private sanitizer: DomSanitizer
   ) {
     // Open connection with server socket
@@ -38,32 +29,36 @@ export class UsersComponent implements OnInit {
     // }
   }
 
-  loadStudents(){
+  loadStudents() {
     this.userService.getStudents().subscribe((users) => {
-      users.forEach(user => {
-        if(user.image != null){
+      users.forEach((user) => {
+        if (user.image != null) {
           this.userService.getImage(user.image).subscribe((img) => {
             console.log(img);
-            user.imageBlob = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(img));
+            user.imageBlob = this.sanitizer.bypassSecurityTrustUrl(
+              URL.createObjectURL(img)
+            );
             console.log(user.imageBlob);
-          })
+          });
         }
-      })
+      });
       this.users = users;
     });
   }
 
-  loadTeachers(){
+  loadTeachers() {
     this.userService.getTeachers().subscribe((users) => {
-      users.forEach(user => {
-        if(user.image != null){
+      users.forEach((user) => {
+        if (user.image != null) {
           this.userService.getImage(user.image).subscribe((img) => {
             console.log(img);
-            user.imageBlob = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(img));
+            user.imageBlob = this.sanitizer.bypassSecurityTrustUrl(
+              URL.createObjectURL(img)
+            );
             console.log(user.imageBlob);
-          })
+          });
         }
-      })
+      });
       this.users = users;
     });
   }

@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from './app.service';
@@ -18,7 +17,6 @@ export class CommunicationService {
     private appService: AppService,
     private router: Router,
     private webSocketService: MessageServiceService,
-    private http: HttpClient
   ) {
     this.user = this.appService.getAuth();
     if (!this.user.base) this.router.navigate(['login']);
@@ -27,14 +25,14 @@ export class CommunicationService {
     }
   }
 
-  sendMessage(message:Message) {
+  sendMessage(message: Message) {
     console.log(message);
     this.stompClient.send(
       '/app/private',
       {},
       JSON.stringify({
         text: message.text,
-        to: message.to
+        to: message.to,
       })
     );
   }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Course } from 'src/app/interfaces/Course';
-import { UserCourseCreation } from 'src/app/interfaces/UserCourseCreation';
 import { User } from 'src/app/interfaces/UserInterface';
 import { NotificationsService } from 'src/app/notifications/notifications.service';
 import { UsersService } from 'src/app/users/users.service';
@@ -20,7 +19,7 @@ export class CoursesAddComponent implements OnInit {
     private formBuilder: FormBuilder,
     private usersService: UsersService,
     private coursesService: CoursesService,
-    private notificationService:NotificationsService
+    private notificationService: NotificationsService
   ) {}
 
   ngOnInit(): void {
@@ -39,10 +38,10 @@ export class CoursesAddComponent implements OnInit {
       teacherId: +this.form.value.teacherId,
       id: 0,
       students: [],
-      teacher: undefined
+      teacher: undefined,
     };
-    this.coursesService.addCourse(course).subscribe(p => {
-      this.notificationService.setText("Dodano przedmiot");
+    this.coursesService.addCourse(course).subscribe((p) => {
+      this.notificationService.setText('Dodano przedmiot');
       setTimeout(() => window.location.reload(), 3 * 1500);
     });
   }

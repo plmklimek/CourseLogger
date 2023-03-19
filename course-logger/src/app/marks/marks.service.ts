@@ -7,23 +7,22 @@ import { UserCourse } from '../interfaces/UserCourse';
 import { User } from '../interfaces/UserInterface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MarksService {
   user: User = {} as User;
   private apiUrl: string = 'http://localhost:8080/marks';
-  
-  constructor(private http: HttpClient, private appService: AppService) { }
 
-  getMarksByCourseAndUser(userCourse: UserCourse): Observable<{ [key: string]: Mark[] }> {
+  constructor(private http: HttpClient, private appService: AppService) {}
+
+  getMarksByCourseAndUser(
+    userCourse: UserCourse
+  ): Observable<{ [key: string]: Mark[] }> {
     this.user = this.appService.getAuth();
 
     let httpHeaders = new HttpHeaders();
     httpHeaders = httpHeaders.set('Content-Type', 'application/json');
-    httpHeaders = httpHeaders.set(
-      'Authorization',
-      'Basic ' + this.user.base
-    );
+    httpHeaders = httpHeaders.set('Authorization', 'Basic ' + this.user.base);
     const httpOptions = {
       headers: httpHeaders,
     };
@@ -34,15 +33,12 @@ export class MarksService {
     );
   }
 
-  addMark(mark:Mark){
+  addMark(mark: Mark) {
     this.user = this.appService.getAuth();
 
     let httpHeaders = new HttpHeaders();
     httpHeaders = httpHeaders.set('Content-Type', 'application/json');
-    httpHeaders = httpHeaders.set(
-      'Authorization',
-      'Basic ' + this.user.base
-    );
+    httpHeaders = httpHeaders.set('Authorization', 'Basic ' + this.user.base);
     const httpOptions = {
       headers: httpHeaders,
     };

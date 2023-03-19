@@ -1,4 +1,9 @@
-<form [formGroup]="form" (ngSubmit)="createUser()" class="form" enctype="multipart/form-data">
+<form
+  [formGroup]="form"
+  (ngSubmit)="createUser()"
+  class="form"
+  enctype="multipart/form-data"
+>
   <label class="label">
     Imię:
     <input type="text" formControlName="name" />
@@ -15,11 +20,11 @@
     Email:
     <input type="text" formControlName="email" />
   </label>
-  <label class="label" style="width:30%">
-    <input type="radio" formControlName="type" value="1"> Student
+  <label class="label" style="width: 30%">
+    <input type="radio" formControlName="type" value="1" /> Student
   </label>
-  <label class="label" style="width:30%">
-    <input type="radio" formControlName="type" value="0"> Nauczyciel
+  <label class="label" style="width: 30%">
+    <input type="radio" formControlName="type" value="0" /> Nauczyciel
   </label>
   <input type="file" (change)="onFileSelected($event)" />
   <button type="submit">Wyślij</button>

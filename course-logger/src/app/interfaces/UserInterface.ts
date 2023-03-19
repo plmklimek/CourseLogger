@@ -10,6 +10,6 @@ export interface User {
   image?: string;
   base?: string;
   authorities?: Authority[];
-  marks?:number[];
-  imageBlob?:any;
+  marks?: number[];
+  imageBlob?: any;
 }
