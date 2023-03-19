@@ -1,9 +1,9 @@
-<form [formGroup]="form" (ngSubmit)="addCourse()">
-  <label>
+<form [formGroup]="form" (ngSubmit)="addCourse()" class="form">
+  <label class="label">
     Nazwa:
     <input type="text" formControlName="name" />
   </label>
-  <label for="selectInput">Wybierz opcję:</label>
+  <label for="selectInput" class="label">Wybierz nauczyciela:</label>
   <select
     class="form-control"
     id="selectInput"
@@ -14,5 +14,5 @@
       {{ item.name + " " + item.surname }}
     </option>
   </select>
-  <button type="submit">Submit Application</button>
+  <button type="submit">Dodaj przedmiot</button>
 </form>

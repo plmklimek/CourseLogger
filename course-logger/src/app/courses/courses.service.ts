@@ -35,6 +35,23 @@ export class CoursesService {
     );
   }
 
+  getCoursesByUser(id:number): Observable<Course[]> {
+    this.user = this.appService.getAuth();
+    let httpHeaders = new HttpHeaders();
+    httpHeaders = httpHeaders.set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.set(
+      'Authorization',
+      'Basic ' + this.user.base
+    );
+    const httpOptions = {
+      headers: httpHeaders,
+    };
+    return this.http.get<Course[]>(
+      `${this.apiUrl}/my`,
+      httpOptions
+    );
+  }
+
   getCoursesById(id:number): Observable<Course> {
     this.user = this.appService.getAuth();
     let httpHeaders = new HttpHeaders();

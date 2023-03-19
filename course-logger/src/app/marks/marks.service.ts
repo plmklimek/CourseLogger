@@ -33,4 +33,23 @@ export class MarksService {
       httpOptions
     );
   }
+
+  addMark(mark:Mark){
+    this.user = this.appService.getAuth();
+
+    let httpHeaders = new HttpHeaders();
+    httpHeaders = httpHeaders.set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.set(
+      'Authorization',
+      'Basic ' + this.user.base
+    );
+    const httpOptions = {
+      headers: httpHeaders,
+    };
+    return this.http.post<{ [key: string]: Mark[] }>(
+      `${this.apiUrl}/create`,
+      mark,
+      httpOptions
+    );
+  }
 }

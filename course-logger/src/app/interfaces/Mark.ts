@@ -1,9 +1,12 @@
 import { Course } from './Course';
 import {User} from './UserInterface';
 export interface Mark {
-    id: number,
-    teacher: User,
-    student: User,
-    course: Course,
-    mark:number
+    id?: number,
+    teacher?: User,
+    student?: User,
+    course?: Course,
+    mark:number,
+    studentId?:number,
+    teacherId?:number,
+    courseId?:number
 }

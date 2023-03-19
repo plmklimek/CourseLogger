@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from 'src/app/app.service';
 import { Course } from 'src/app/interfaces/Course';
+import { User } from 'src/app/interfaces/UserInterface';
 import { CoursesService } from '../courses.service';
 
 @Component({
@@ -9,12 +11,23 @@ import { CoursesService } from '../courses.service';
 })
 export class CoursesComponent implements OnInit {
   courses: Course[] = {} as Course[];
-  constructor(private courseService: CoursesService) {}
+  user:User = {} as User;
+  constructor(private courseService: CoursesService, private appService:AppService) {
+    this.user = this.appService.getAuth();
+  }
 
   ngOnInit(): void {
-    this.courseService.getCourses().subscribe((objects) => {
-      this.courses = objects;
-    });
-    console.log('koniec');
+    console.log('a');
+    console.log(this.user.id);
+    if(this.appService.isAdmin()){
+      this.courseService.getCourses().subscribe((objects) => {
+        this.courses = objects;
+      });
+    }
+    else if(this.user.id != null){
+      this.courseService.getCoursesByUser(this.user.id).subscribe((objects) => {
+        this.courses = objects;
+      });
+    }
   }
 }
