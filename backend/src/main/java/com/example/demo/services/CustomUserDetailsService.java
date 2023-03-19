@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.models.AppUserDetails;
+import com.example.demo.models.AppUserDetailsWithId;
 import com.example.demo.models.User;
 import com.example.demo.repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new IllegalArgumentException(USER_DOESNT_EXISTS);
         }
-        return new AppUserDetails(user);
+        return new AppUserDetailsWithId(user, user.getId());
     }
 }
