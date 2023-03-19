@@ -35,6 +35,11 @@ public class MarksService {
                 .collect(Collectors.groupingBy(markDto -> markDto.getStudent()));
     }
 
+    public Map<UserDto, List<MarkDto>> findByCourseAndUser(Long courseId, Long userId) {
+        return markRepository.findByCourseAndUserId(courseId, userId).stream().map(MarkDto::new)
+                .collect(Collectors.groupingBy(markDto -> markDto.getStudent()));
+    }
+
     public Mark createMark(MarkCreate mark) {
         User student = userService.getStudentByIdUser(mark.getStudentId());
         User teacher = userService.getTeacherByIdUser(mark.getTeacherId());

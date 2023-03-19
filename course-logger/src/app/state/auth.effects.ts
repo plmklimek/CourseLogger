@@ -69,6 +69,9 @@ export class AuthEffects {
   );
 
   setData(data: User, action: { email: string; password: string }): void {
+    if (this.user.id == undefined) {
+      this.user.id = data.id;
+    }
     if (this.user.username == undefined) {
       this.user.username = data.username;
     }

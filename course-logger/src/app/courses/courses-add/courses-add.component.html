@@ -1,0 +1,18 @@
+<form [formGroup]="form" (ngSubmit)="addCourse()" class="form">
+  <label class="label">
+    Nazwa:
+    <input type="text" formControlName="name" />
+  </label>
+  <label for="selectInput" class="label">Wybierz nauczyciela:</label>
+  <select
+    class="form-control"
+    id="selectInput"
+    name="selectInput"
+    formControlName="teacherId"
+  >
+    <option *ngFor="let item of users" [value]="item.id">
+      {{ item.name + " " + item.surname }}
+    </option>
+  </select>
+  <button type="submit">Dodaj przedmiot</button>
+</form>

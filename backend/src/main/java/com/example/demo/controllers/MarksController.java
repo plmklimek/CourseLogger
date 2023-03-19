@@ -4,6 +4,7 @@ import com.example.demo.models.ErrorModal;
 import com.example.demo.models.dtos.CourseDto;
 import com.example.demo.models.dtos.MarkCreate;
 import com.example.demo.models.dtos.MarkDto;
+import com.example.demo.models.dtos.UserCourseDto;
 import com.example.demo.models.dtos.users.UserDto;
 import com.example.demo.models.enums.Role;
 import com.example.demo.services.MarksService;
@@ -40,6 +41,12 @@ public class MarksController {
     public ResponseEntity<Map<UserDto, List<MarkDto>>> getMarksByCourse(
             @PathVariable Long id) {
         return ResponseEntity.ok(marksService.findByCourseId(id));
+    }
+
+    @PostMapping("/byCourseAndUser")
+    public ResponseEntity<Map<UserDto, List<MarkDto>>> getMarksByCourseAndUser(
+            @RequestBody UserCourseDto userCourseDto) {
+        return ResponseEntity.ok(marksService.findByCourseAndUser(userCourseDto.getCourseId(), userCourseDto.getUserId()));
     }
 
     @PostMapping("/create")

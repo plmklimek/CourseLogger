@@ -1,0 +1,15 @@
+.li{
+    list-style: none;
+    display: flex;
+}
+.p{
+    width:30%;
+}
+.containerli{
+    display: flex;
+    flex-direction: row;
+}
+.pInLi{
+    width: 25px;
+    margin: 0 10px 0 10px;
+}

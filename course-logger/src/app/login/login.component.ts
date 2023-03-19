@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     this.store.pipe().subscribe((s: any) => {
       this.user = s.auth.user;
       if (this.user.base) {
-        this.router.navigate(['users']);
+        this.router.navigate(['home']);
       }
     });
   }

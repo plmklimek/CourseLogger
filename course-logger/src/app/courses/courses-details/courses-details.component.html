@@ -1,0 +1,91 @@
+<h1>Karta przedmiotu</h1>
+<div>
+  <p>Nazwa: {{ course.name }}</p>
+  <p>Imie nauczyciela: {{ course.teacher ? course.teacher.name : "null" }}</p>
+  <h2>Uczniowie</h2>
+  <ul>
+    <li *ngFor="let object of course.students" class="li">
+      <p class="p">{{ object.name }} {{ object.surname }}</p>
+      <div class="containerli">
+        <p class="pInLi" *ngFor="let obj of object.marks">{{ obj }}</p>
+      </div>
+    </li>
+  </ul>
+</div>
+<div *ngIf="isAdmin()">
+  <h3>Dodaj ucznia</h3>
+  <form *ngIf="users" (ngSubmit)="addStudentToCourse()">
+    <div class="form-group">
+      <label for="selectInput">Wybierz studenta:</label>
+      <select
+        class="form-control"
+        id="selectInput"
+        name="selectInput"
+        [(ngModel)]="student.id"
+      >
+        <option *ngFor="let item of users" [value]="item.id">
+          {{ item.name + " " + item.surname }}
+        </option>
+      </select>
+    </div>
+
+    <!-- pozostałe pola formularza... -->
+
+    <button type="submit" class="btn btn-primary">Wyślij</button>
+  </form>
+</div>
+<div *ngIf="isTeacher()">
+  <h3>Dodaj ocenę</h3>
+  <form (ngSubmit)="addMark()">
+    <div class="form-group">
+      <label for="selectInput">Wybierz ocenę:</label>
+      <select
+        class="form-control"
+        id="selectInput"
+        name="selectInput"
+        [(ngModel)]="mark.mark"
+      >
+        <option [value]="1.0">
+          1.0
+        </option>
+        <option [value]="2.0">
+          2.0
+        </option>
+        <option [value]="2.5">
+          2.5
+        </option>
+        <option [value]="3.0">
+          3.0
+        </option>
+        <option [value]="3.5">
+          3.5
+        </option>
+        <option [value]="4.0">
+          4.0
+        </option>
+        <option [value]="4.5">
+          4.5
+        </option>
+        <option [value]="5.0">
+          5.0
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="selectInput">Wybierz studenta:</label>
+      <select
+        class="form-control"
+        id="selectInput"
+        name="selectInput"
+        [(ngModel)]="mark.studentId"
+      >
+        <option *ngFor="let item of usersInCourse" [value]="item.id">
+          {{ item.name + " " + item.surname }}
+        </option>
+      </select>
+    </div>
+    <!-- pozostałe pola formularza... -->
+
+    <button type="submit" class="btn btn-primary">Wyślij</button>
+  </form>
+</div>

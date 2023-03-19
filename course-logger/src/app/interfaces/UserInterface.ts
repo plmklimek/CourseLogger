@@ -7,7 +7,9 @@ export interface User {
   username?: string;
   name?: string;
   surname?: string;
-  photo?: string;
+  image?: string;
   base?: string;
   authorities?: Authority[];
+  marks?:number[];
+  imageBlob?:any;
 }

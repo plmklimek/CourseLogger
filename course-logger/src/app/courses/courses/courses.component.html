@@ -1,0 +1,6 @@
+<h1>Kursy</h1>
+<ul>
+    <li *ngFor="let object of courses">
+        <a [routerLink]="['/courses-details', object.id]">{{object.name}}</a>
+    </li>
+</ul>

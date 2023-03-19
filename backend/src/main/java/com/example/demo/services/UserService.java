@@ -34,6 +34,19 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public List<UserDto> getAllStudentsByCourse(Long id) {
+        return userRepository.findAll().stream()
+                .filter(user -> user.getAuthorities().stream()
+                        .anyMatch(auth -> auth.getAuthority()
+                                .equals(Role.STUDENT.getName())
+                        &&
+                        user.getCourses().stream()
+                                .anyMatch(course -> course.getCourse().getId()
+                                        .equals(id)))
+                ).map(UserDto::new)
+                .collect(Collectors.toList());
+    }
+
     public List<UserDto> getAllTeachers() {
         return userRepository.findAll().stream()
                 .filter(user -> user.getAuthorities().stream()
@@ -116,4 +129,5 @@ public class UserService {
     private PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }

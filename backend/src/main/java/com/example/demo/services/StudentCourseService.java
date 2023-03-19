@@ -26,6 +26,11 @@ public class StudentCourseService {
     public StudentCourse createStudentCourse(CreateCourse courseDto) {
         User student = userService.getStudentByIdUser(courseDto.getStudentId());
         Course course = courseService.getByIdCourse(courseDto.getId());
-        return studentCourseRepository.save(new StudentCourse(student, course));
+        if(!student.getCourses().contains(course)){
+            return studentCourseRepository.save(new StudentCourse(student, course));
+        }
+        else{
+            throw new IllegalArgumentException("Użytkownik jest przypisany już do tego przedmiotu");
+        }
     }
 }

@@ -1,3 +1,14 @@
-<p>USER: {{ user ? user.base : "ERROR" }}</p>
+<!-- <p>USER: {{ user ? user.base : "ERROR" }}</p>
 <p>TEXT {{ text ? text.text : "ERROR" }}</p>
-<button (click)="sendMessage()">SEND MESSAGE</button>
+<button (click)="sendMessage()">SEND MESSAGE</button> -->
+<h1>Użytkownicy</h1>
+<button (click)="loadStudents()">wyświetl uczniów</button>
+<button (click)="loadTeachers()">wyświetl nauczycieli</button>
+<ul>
+    <li class="li" *ngFor="let item of users">
+        <p class="p">{{item.name + ' ' + item.surname}}</p>
+        <div *ngIf="item.imageBlob">
+            <img class="img" [src]="item.imageBlob" alt="Zdjęcie">
+        </div>
+    </li>
+</ul>

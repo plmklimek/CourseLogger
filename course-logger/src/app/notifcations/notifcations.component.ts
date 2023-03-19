@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { User } from '../interfaces/UserInterface';
 import { MessageServiceService } from '../message-service.service';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Component({
   selector: 'app-notifcations',
@@ -15,7 +16,8 @@ export class NotifcationsComponent implements OnInit {
   stompClient: any;
   constructor(
     private appService: AppService,
-    private webSocketService: MessageServiceService
+    private webSocketService: MessageServiceService,
+    private notificationService: NotificationsService
   ) {}
 
   ngOnInit(): void {
@@ -42,5 +44,10 @@ export class NotifcationsComponent implements OnInit {
         });
       });
     }
+    this.notificationService.getText().subscribe((text) => {
+      this.text = {text: text}
+    });
+
+    setTimeout(() => this.notificationService.setText(''), 3 * 1500);
   }
 }
