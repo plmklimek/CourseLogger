@@ -41,13 +41,12 @@ export class NotifcationsComponent implements OnInit {
         this.stompClient.subscribe('/user/specific', (notifications: any) => {
           // Update notifications attribute with the recent messsage sent from the server
           this.text = JSON.parse(notifications.body);
+          setTimeout(() => this.text = { text: null }, 3 * 1500);
         });
       });
     }
     this.notificationService.getText().subscribe((text) => {
       this.text = { text: text };
     });
-
-    setTimeout(() => this.notificationService.setText(''), 3 * 1500);
   }
 }

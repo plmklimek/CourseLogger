@@ -122,6 +122,7 @@ export class CoursesDetailsComponent implements OnInit {
       teacherId: this.appService.getAuth().id,
       courseId: this.id,
     };
+    console.log('mark');
     console.log(mark);
     this.marksService.addMark(mark).subscribe((p) => {
       this.notificationService.setText('Dodano ocenę');
