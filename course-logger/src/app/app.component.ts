@@ -16,12 +16,12 @@ export class AppComponent implements OnInit {
   constructor(
     private store: Store<AuthState>,
     private appService: AppService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.store.dispatch(autoLogin());
     this.user = this.appService.getAuth();
-    console.log(this.user);
   }
 
   logout() {
